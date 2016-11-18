@@ -50,7 +50,8 @@
 [3,] 0.00 0.00 0.05 0.17 0.03
 [4,] 0.01 0.06 0.14 0.04 0.00
 ```
-
+### Next Dose Level
+### Simulation Studies
 ## Authors and Reference
 Chi Kin Lam, Ruitao Lin and Guosheng Yin 
 
