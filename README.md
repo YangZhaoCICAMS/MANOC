@@ -1,4 +1,6 @@
-# Multi-agent Nonparametric Overdose Contraol (MANOC)
+# MANOC (Multi-agent Nonparametric Overdose Control)
+R codes to implement the multi-agent nonparametric overdose control design for dose finding in phase I drug-combination trials.
+
 ## Inputs 
 - samplesize: The maximum number of patients to be enrolled.  
 - cohortsize: The number of patients in each cohort. 
@@ -24,7 +26,7 @@
 
 ## Examples
 ### Posterior Probability
-```
+```rscript
 > setwd("/MANOC_master/")
 > source("ToxProb_Generate.R")
 > source("PosteriorProbability.R")
@@ -42,7 +44,7 @@
 > PostProb<-posteriorH(y=y,n=n,target=0.3,p.sample.mat=p.sample.mat)$lik
 ```
 
-```
+```rscript
 > round(PostProb,digits=2)
      [,1] [,2] [,3] [,4] [,5]
 [1,] 0.00 0.00 0.00 0.00 0.03
@@ -51,7 +53,7 @@
 [4,] 0.01 0.06 0.14 0.04 0.00
 ```
 ### Next Dose Level
-```
+```rscript
 > rm(list=ls())
 > setwd("/MANOC_master/")
 > source("ToxProb_Generate.R")
