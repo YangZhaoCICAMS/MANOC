@@ -5,7 +5,7 @@
 - target: The target toxicity rate. 
 - epi: A small positive number epsilon in the model specification.  
 - alpha: 
-- delta: 
+- delta: A small increment for the untried dose combinations.
 - eta: dose-switching cutoff.
 - nsim:
 - NN: The number of samples of **p** generated from its prior distribution.
