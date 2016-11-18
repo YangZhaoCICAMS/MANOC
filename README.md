@@ -25,16 +25,9 @@
 ## Examples
 ### Posterior Probability
 ```
-> rm(list=ls())
-> options(digits=2)
-> 
-> setwd("/Users/lamchikin/Dropbox/NOC_DrugComb/MANOC_master/")
-> source("NextDoseComb.R")
-> source("PosteriorProbability.R")
-> source("Simulation.R")
+> setwd("/MANOC_master/")
 > source("ToxProb_Generate.R")
-> source("Summarize.R")
-> 
+> source("PosteriorProbability.R")
 > 
 > target <- 0.30
 > epi <- 0.025
