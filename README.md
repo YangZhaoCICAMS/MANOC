@@ -4,18 +4,17 @@
 - cohortsize: The number of patients in each cohort. 
 - target: The target toxicity rate. 
 - epi: A small positive number epsilon in the model specification.  
-- alpha: The prespecified feasible bound.    \alpha    
-
-- delta: A small increment for the untried dose combinations.
-- eta: dose-switching cutoff.
-- nsim:
+- alpha: The prespecified feasible bound.    
+- delta: A small increment on the posterior probabilities for the untried dose combinations.
+- eta: The dose-switching cutoff.
 - NN: The number of samples of **p** generated from its prior distribution.
-- Tox_Prob_Mat:
+- nsim: The number of trials simulated under each scenario. 
+- Tox_Prob_Mat: The prespecified toxicity probability under each scenario. 
 
 ## Functions
-- NextDoseComb.R: Containing a function `get.next.manoc(pos.model,j_curr,k_curr,alpha,eta)` for determining the next dose combination given the current dose combination, the posterior model probabilities, alpha and eta. 
+- NextDoseComb.R: Containing a function `get.next.manoc` for determining the next dose combination given the current dose combination, the posterior model probabilities, alpha and eta. 
 
-- PosteriorProbability.R: Containing a function `posteriorH(y,n,target,p.sample.mat)` for calculating the posterior model probability for each dose combination.
+- PosteriorProbability.R: Containing a function `posteriorH` for calculating the posterior model probability for each dose combination.
 
 - Simulation.R: Containing a function `simulation(simid,Tox_Prob_Mat,p.sample.mat,samplesize,cohortsize,target,alpha,delta,eta)` for conducting simulation studies. 
 
