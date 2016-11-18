@@ -6,7 +6,7 @@
 - epi: A small positive number epsilon in the model specification.  
 - alpha: 
 - delta: 
-- eta:
+- eta: dose-switching cutoff.
 - nsim:
 - NN: The number of samples of **p** generated from its prior distribution.
 - Tox_Prob_Mat:
