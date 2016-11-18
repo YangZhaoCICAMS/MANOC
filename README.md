@@ -12,15 +12,15 @@
 - Tox_Prob_Mat: The prespecified toxicity probability under each scenario. 
 
 ## Functions
-- NextDoseComb.R: Containing a function `get.next.manoc` for determining the next dose combination given the current dose combination, the posterior model probabilities, alpha and eta. 
+- NextDoseComb.R: Containing a function `get.next.manoc()` for determining the next dose combination given the current dose combination, the posterior model probabilities, alpha and eta. 
 
-- PosteriorProbability.R: Containing a function `posteriorH` for calculating the posterior model probability for each dose combination.
+- PosteriorProbability.R: Containing a function `posteriorH()` for calculating the posterior model probability for each dose combination.
 
-- Simulation.R: Containing a function `simulation(simid,Tox_Prob_Mat,p.sample.mat,samplesize,cohortsize,target,alpha,delta,eta)` for conducting simulation studies. 
+- Simulation.R: Containing a function `simulation()` for conducting simulation studies. 
 
-- Summarize.R: Containing a function `summarize` for summarizing the outputs produced by the function `simulation()`.
+- Summarize.R: Containing a function `summarize()` for summarizing the outputs produced by the function `simulation()`.
 
-- ToxProb_Generate.R: Containing a function `generate_p.sample.mat(\delta)` for generating samples of the toxicity matrix **p** from its prior distribution. Details can be found in the Appendix of the paper. 
+- ToxProb_Generate.R: Containing a function `generate_p.sample.mat()` for generating samples of the toxicity matrix **p** from its prior distribution. Details can be found in the Appendix of the paper. 
 
 ## Examples
 ### Posterior Probability
