@@ -4,7 +4,8 @@
 - cohortsize: The number of patients in each cohort. 
 - target: The target toxicity rate. 
 - epi: A small positive number epsilon in the model specification.  
-- alpha: 
+- alpha: The prespecified feasible bound.    \alpha    
+
 - delta: A small increment for the untried dose combinations.
 - eta: dose-switching cutoff.
 - nsim:
