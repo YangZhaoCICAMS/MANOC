@@ -49,13 +49,14 @@ y<-matrix(c(0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,0,12,0,0),4,5)
 PostProb<-posteriorH(y=y,n=n,target=0.3,p.sample.mat=p.sample.mat)$lik
 ```
 
+```
 round(PostProb,digits=2)
-[,1] [,2] [,3] [,4] [,5]
+     [,1] [,2] [,3] [,4] [,5]
 [1,] 0.00 0.00 0.00 0.00 0.03
 [2,] 0.00 0.00 0.00 0.03 0.45
 [3,] 0.00 0.00 0.05 0.17 0.03
 [4,] 0.01 0.06 0.14 0.04 0.00
-
+```
 
 ## Authors and Reference
 Chi Kin Lam, Ruitao Lin and Guosheng Yin 
