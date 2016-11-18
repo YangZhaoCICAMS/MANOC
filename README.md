@@ -10,6 +10,7 @@
 - nsim:
 - NN: The number of samples of **p** generated from its prior distribution.
 - Tox_Prob_Mat:
+
 ## Functions
 - NextDoseComb.R: Containing a function `get.next.manoc(pos.model,j_curr,k_curr,alpha,eta)` for determining the next dose combination given the current dose combination, the posterior model probabilities, alpha and eta. 
 
