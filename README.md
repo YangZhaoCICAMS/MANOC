@@ -4,13 +4,13 @@
 - cohortsize: The number of patients in each cohort. 
 - target: The target toxicity rate. 
 - epi: A small positive number epsilon in the model specification.  
-- NN: The number of samples of **p** generated from its prior distribution. 
-- Tox_Prob_Mat: 
-- alpha<-0.35
-- delta<-0.03
-- eta<-0.60
-- nsim <- The number of simulation studies conducted for each set of parameters. 
+- alpha: 
+- delta: 
+- eta:
 
+- nsim:
+- NN: The number of samples of **p** generated from its prior distribution.
+- Tox_Prob_Mat:
 ## Functions
 - NextDoseComb.R: Containing a function `get.next.manoc(pos.model,j_curr,k_curr,alpha,eta)` for determining the next dose combination given the current dose combination, the posterior model probabilities, alpha and eta. 
 
