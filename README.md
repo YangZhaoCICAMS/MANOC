@@ -48,7 +48,7 @@ We can use the following code to select the MTD combination.
 ```rscript
 rm(list=ls())
 
-setwd("/Users/lamchikin/Dropbox/MANOC/MANOC_master/")
+setwd("/MANOC_master/")
 source("ToxProb_Generate.R")
 source("PosteriorProbability.R")
 source("MTDSelection.R")
@@ -62,7 +62,7 @@ y<-matrix(c(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,1,2,2, 0,12,0,0),4,5)
 p.sample.mat <- generate_p.sample.mat(ndose.A=nrow(n),ndose.B=ncol(n), NN=NN, target=target, epi=epi) 
 MTDSelection(y=y,n=n,target=target,p.sample.mat=p.sample.mat)
 ```
-The output including the poaterior probability of each dose combination and the selected MTD pair are respectively given by
+The output including the posterior probability of each dose combination and the selected MTD pair are respectively given by
 ```rscript
 > MTDSelection(y=y,n=n,target=target,p.sample.mat=p.sample.mat)
 $pos.model
@@ -76,7 +76,24 @@ $MTD.sel
      row col
 [1,]   2   5
 ```
+
 ### Next Dose Level
+- If ten cohorts of patients have been enrolled and the corresponding *n* and *y* are
+```rscript
+> n
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    3    0    0    0    3
+[2,]    0    3    0    9    3
+[3,]    0    0    3    3    0
+[4,]    0    0    0    3    0
+> y
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    0    0    0    0    0
+[2,]    0    0    0    1    2
+[3,]    0    0    0    2    0
+[4,]    0    0    0    2    0
+```
+To decide the dose combination at which the eleventh cohort of patients treated, we can use the function `get.next.manoc`.
 ```rscript
 > rm(list=ls())
 > setwd("/MANOC_master/")
@@ -86,17 +103,16 @@ $MTD.sel
 > target <- 0.33
 > epi <- 0.025
 > delta <- 0.05
+> alpha<-0.35
+> eta<-0.55
 > NN <- 50000
 > 
 > j_curr<-1
 > k_curr<-5
-> 
-> alpha<-0.35
-> eta<-0.55
 >
 > n<-matrix(c(3,0,0,0, 0,3,0,0, 0,0,3,0, 0,9,3,3, 3,3,0,0),4,5)
 > y<-matrix(c(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,1,2,2, 0,2,0,0),4,5)
-> ## Generate the matrices of p. ## 
+> 
 > p.sample.mat <- generate_p.sample.mat(ndose.A=nrow(n),ndose.B=ncol(n), NN=NN, target=target, epi=epi) 
 > 
 > get.next.manoc(y=y,n=n,target=target,delta=delta,p.sample.mat=p.sample.mat,j_curr=j_curr,k_curr=k_curr,alpha=alpha,eta=eta)
