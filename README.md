@@ -26,7 +26,23 @@ R codes to implement the multi-agent nonparametric overdose control design for d
 
 ## Examples
 We apply the MANOC design to the phase Ib trial with a combination of buparlisib and trametinib.
-Suppose at the end of trial
+
+- Suppose at the end of trial, the number of patients treated at each dose combination *n* and the corresponding number of toxicities *y* are 
+```rscript
+> n
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    3    0    0    0    3
+[2,]    0    3    0    9   39
+[3,]    0    0    3    3    0
+[4,]    0    0    0    3    0
+> 
+> y
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    0    0    0    0    0
+[2,]    0    0    0    1   12
+[3,]    0    0    0    2    0
+[4,]    0    0    0    2    0
+```
 ### Posterior Probability
 ```rscript
 rm(list=ls())
