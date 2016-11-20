@@ -4,12 +4,12 @@ R codes to implement the multi-agent nonparametric overdose control design for d
 # Description
 To enhance the robustness as well as safety of the design, we extend the single-agent non-parametric overdose control (NOC) design proposed by Lin and Yin (2016b) to drug-combination trials. 
 The proposed multi-agent NOC (MANOC) design transforms dose finding into a model-selection problem for searching the most suitable model in the full model space composed with all paired dose combinations.
-In the MANOC design, the dose–-toxicity relationship is modelled solely based on the partial information of the toxicity order, and no parametric assumption is imposed.
-This enables the MANOC design to be stable and robust even when the shape of the dose–toxicity surface is irregular.
+In the MANOC design, the dose–-toxicity relationship is modelled solely based on the partial information of the toxicity order.
 In addition, the posterior probability of each dose pair being the MTD combination is timely updated upon the availability
 of new information. 
-All the information across the entire dose space can be fully integrated for decision making, which substantially improves the efficiency of MANOC over other existing algorithm-based dose-finding methods. 
-To prevent patients from experiencing excessive toxicities, the dose combination assigned to each new cohort of patients is determined by minimizing an asymmetric loss function, such that overdosing is penalized to some extent. Our nonparametric model specification in conjunction with the conservative dose-assignment scheme guarantee the MANOC design to be safe and yet maintain competitive performance for identifying the MTD combination.
+All the information across the entire dose space can be fully integrated for decision making. 
+To prevent patients from experiencing excessive toxicities, the dose combination assigned to each new cohort of patients is determined by minimizing an asymmetric loss function, such that overdosing is penalized to some extent. 
+Our nonparametric model specification in conjunction with the conservative dose-assignment scheme guarantee the MANOC design to be safe and yet maintain competitive performance for identifying the MTD combination.
 
 # Inputs 
 - samplesize: The maximum number of patients to be enrolled.  
