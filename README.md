@@ -25,32 +25,41 @@ R codes to implement the multi-agent nonparametric overdose control design for d
 - ToxProb_Generate.R: Containing a function `generate_p.sample.mat()` for generating samples of the toxicity matrix **p** from its prior distribution. Details can be found in the Appendix of the paper. 
 
 ## Examples
+We apply the MANOC design to the phase Ib trial with a combination of buparlisib and trametinib.
+Suppose at the end of trial
 ### Posterior Probability
 ```rscript
-> setwd("/MANOC_master/")
-> source("ToxProb_Generate.R")
-> source("PosteriorProbability.R")
-> 
-> target <- 0.30
-> epi <- 0.025
-> NN <- 10000
-> 
-> ## Generate the matrices of p. ## 
-> p.sample.mat <- generate_p.sample.mat(ndose.A=4,ndose.B=5, NN=NN, target=target, epi=epi) 
-> 
-> n<-matrix(c(3,0,0,0,0,3,0,0,0,0,3,0,0,9,3,3,3,39,0,0),4,5)
-> y<-matrix(c(0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,0,12,0,0),4,5)
-> 
-> PostProb<-posteriorH(y=y,n=n,target=0.3,p.sample.mat=p.sample.mat)$lik
+rm(list=ls())
+
+setwd("/Users/lamchikin/Dropbox/MANOC/MANOC_master/")
+source("ToxProb_Generate.R")
+source("PosteriorProbability.R")
+source("MTDSelection.R")
+target <- 0.33
+epi <- 0.025
+NN <- 50000
+
+n<-matrix(c(3,0,0,0, 0,3,0,0, 0,0,3,0, 0,9,3,3, 3,39,0,0),4,5)
+y<-matrix(c(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,1,2,2, 0,12,0,0),4,5)
+
+## Generate the matrices of p. ## 
+p.sample.mat <- generate_p.sample.mat(ndose.A=nrow(n),ndose.B=ncol(n), NN=NN, target=target, epi=epi) 
+
+MTDSelection(y=y,n=n,target=target,p.sample.mat=p.sample.mat)
 ```
 
 ```rscript
-> round(PostProb,digits=2)
+> MTDSelection(y=y,n=n,target=target,p.sample.mat=p.sample.mat)
+$pos.model
      [,1] [,2] [,3] [,4] [,5]
-[1,] 0.00 0.00 0.00 0.00 0.03
-[2,] 0.00 0.00 0.00 0.03 0.45
-[3,] 0.00 0.00 0.05 0.17 0.03
-[4,] 0.01 0.06 0.14 0.04 0.00
+[1,] 0.00 0.00 0.00 0.00 0.02
+[2,] 0.00 0.00 0.00 0.02 0.42
+[3,] 0.00 0.00 0.04 0.19 0.05
+[4,] 0.01 0.05 0.15 0.06 0.00
+
+$MTD.sel
+     row col
+[1,]   2   5
 ```
 ### Next Dose Level
 ```rscript
