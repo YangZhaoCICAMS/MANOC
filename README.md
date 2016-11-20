@@ -11,23 +11,24 @@ To prevent patients from experiencing excessive toxicities, the dose combination
 Our nonparametric model specification in conjunction with the conservative dose-assignment scheme guarantee the MANOC design to be safe and yet maintain competitive performance for identifying the MTD combination.
 
 # Functions
-- ToxProb_Generate.R: containing a function `generate_p.sample.mat()` for generating samples of the toxicity matrix **p** from its prior distribution. Details can be found in the Appendix of the paper
-- NextDoseComb.R: containing a function `get.next.manoc()` for determining the next dose combination
-- PosteriorProbability.R: containing a function `posteriorH()` for calculating the posterior model probability for each dose combination
-- Simulation.R: containing a function `simulation()` for conducting simulation studies
-- Summarize.R: containing a function `summarize()` for summarizing the outputs produced by the function `simulation()`
+- ToxProb_Generate.R: containing a function `generate_p.sample.mat()` for generating samples of the toxicity matrix **p** from its prior distribution. Details can be found in the Appendix of the paper.
+- MTDSelection.R: containing a function `MTDSelection()` for selecting a dose pair as the MTD combination. 
+- NextDoseComb.R: containing a function `get.next.manoc()` for determining the next dose combination.
+- PosteriorProbability.R: containing a function `posteriorH()` for calculating the posterior model probability for each dose combination.
+- Simulation.R: containing a function `simulation()` for conducting simulation studies.
+- Summarize.R: containing a function `summarize()` for summarizing the outputs produced by the function `simulation()`.
 
 # Inputs 
-- samplesize: the maximum number of patients to be enrolled  
-- cohortsize: the number of patients in each cohort
-- target: the target toxicity rate
+- samplesize: the maximum number of patients to be enrolled. 
+- cohortsize: the number of patients in each cohort.
+- target: the target toxicity rate.
 - epi: A small positive value that defines the neighbourhood of the target toxicity probability.
-- alpha: the prespecified feasible bound
-- delta: a small increment on the posterior probabilities for the untried dose combinations
-- eta: the dose-switching cutoff
-- NN: the number of samples of **p** generated from its prior distribution
-- nsim: the number of trials simulated under each scenario
-- Tox_Prob_Mat: the prespecified toxicity probability under each scenario
+- alpha: the prespecified feasible bound.
+- delta: a small increment on the posterior probabilities for the untried dose combinations.
+- eta: the dose-switching cutoff.
+- NN: the number of samples of **p** generated from its prior distribution.
+- nsim: the number of trials simulated under each scenario.
+- Tox_Prob_Mat: the prespecified toxicity probability under each scenario.
 
 # Examples
 We apply the MANOC design to the phase Ib trial with a combination of buparlisib and trametinib.
