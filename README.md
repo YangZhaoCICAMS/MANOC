@@ -10,30 +10,74 @@ of new information.
 To prevent patients from experiencing excessive toxicities, the dose combination assigned to each new cohort of patients is determined by minimizing an asymmetric loss function, such that overdosing is penalized to some extent. 
 Our nonparametric model specification in conjunction with the conservative dose-assignment scheme guarantee the MANOC design to be safe and yet maintain competitive performance for identifying the MTD combination.
 
-# Inputs 
-- samplesize: The maximum number of patients to be enrolled.  
-- cohortsize: The number of patients in each cohort. 
-- target: The target toxicity rate. 
-- epi: A small positive number epsilon in the model specification.  
-- alpha: The prespecified feasible bound.    
-- delta: A small increment on the posterior probabilities for the untried dose combinations.
-- eta: The dose-switching cutoff.
-- NN: The number of samples of **p** generated from its prior distribution.
-- nsim: The number of trials simulated under each scenario. 
-- Tox_Prob_Mat: The prespecified toxicity probability under each scenario. 
-
 # Functions
-- NextDoseComb.R: Containing a function `get.next.manoc()` for determining the next dose combination given the current dose combination, the posterior model probabilities, alpha and eta. 
-- PosteriorProbability.R: Containing a function `posteriorH()` for calculating the posterior model probability for each dose combination.
-- Simulation.R: Containing a function `simulation()` for conducting simulation studies. 
-- Summarize.R: Containing a function `summarize()` for summarizing the outputs produced by the function `simulation()`.
-- ToxProb_Generate.R: Containing a function `generate_p.sample.mat()` for generating samples of the toxicity matrix **p** from its prior distribution. Details can be found in the Appendix of the paper. 
+- ToxProb_Generate.R: containing a function `generate_p.sample.mat()` for generating samples of the toxicity matrix **p** from its prior distribution. Details can be found in the Appendix of the paper
+- NextDoseComb.R: containing a function `get.next.manoc()` for determining the next dose combination
+- PosteriorProbability.R: containing a function `posteriorH()` for calculating the posterior model probability for each dose combination
+- Simulation.R: containing a function `simulation()` for conducting simulation studies
+- Summarize.R: containing a function `summarize()` for summarizing the outputs produced by the function `simulation()`
+
+# Inputs 
+- samplesize: the maximum number of patients to be enrolled  
+- cohortsize: the number of patients in each cohort
+- target: the target toxicity rate
+- epi: A small positive value that defines the neighbourhood of the target toxicity probability.
+- alpha: the prespecified feasible bound
+- delta: a small increment on the posterior probabilities for the untried dose combinations
+- eta: the dose-switching cutoff
+- NN: the number of samples of **p** generated from its prior distribution
+- nsim: the number of trials simulated under each scenario
+- Tox_Prob_Mat: the prespecified toxicity probability under each scenario
 
 # Examples
 We apply the MANOC design to the phase Ib trial with a combination of buparlisib and trametinib.
 
+## Next Dose Level
+If ten cohorts of patients have been enrolled and the corresponding *n* and *y* are
+```rscript
+> n
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    3    0    0    0    3
+[2,]    0    3    0    9    3
+[3,]    0    0    3    3    0
+[4,]    0    0    0    3    0
+> y
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    0    0    0    0    0
+[2,]    0    0    0    1    2
+[3,]    0    0    0    2    0
+[4,]    0    0    0    2    0
+```
+To decide the dose combination at which the eleventh cohort of patients treated, we can use the function `get.next.manoc()`.
+```rscript
+> rm(list=ls())
+> setwd("/MANOC_master/")
+> source("ToxProb_Generate.R")
+> source("NextDoseComb.R")
+> 
+> target <- 0.33
+> epi <- 0.025
+> delta <- 0.05
+> alpha<-0.35
+> eta<-0.55
+> NN <- 50000
+> 
+> j_curr<-1
+> k_curr<-5
+>
+> n<-matrix(c(3,0,0,0, 0,3,0,0, 0,0,3,0, 0,9,3,3, 3,3,0,0),4,5)
+> y<-matrix(c(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,1,2,2, 0,2,0,0),4,5)
+> 
+> p.sample.mat <- generate_p.sample.mat(ndose.A=nrow(n),ndose.B=ncol(n), NN=NN, target=target, epi=epi) 
+> 
+> get.next.manoc(y=y,n=n,target=target,delta=delta,p.sample.mat=p.sample.mat,j_curr=j_curr,k_curr=k_curr,alpha=alpha,eta=eta)
+$next.dose
+[1] 2 5
+```
+That is, we assign the eleventh cohort of patients to dose combination (2,5).
+
 ## MTD Selection
-- Suppose at the end of trial, the number of patients treated at each dose combination *n* and the corresponding number of toxicities *y* are 
+Suppose at the end of trial, the number of patients treated at each dose combination *n* and the corresponding number of toxicities *y* are 
 ```rscript
 > n
      [,1] [,2] [,3] [,4] [,5]
@@ -82,59 +126,23 @@ $MTD.sel
 [1,]   2   5
 ```
 
-## Next Dose Level
-- If ten cohorts of patients have been enrolled and the corresponding *n* and *y* are
-```rscript
-> n
-     [,1] [,2] [,3] [,4] [,5]
-[1,]    3    0    0    0    3
-[2,]    0    3    0    9    3
-[3,]    0    0    3    3    0
-[4,]    0    0    0    3    0
-> y
-     [,1] [,2] [,3] [,4] [,5]
-[1,]    0    0    0    0    0
-[2,]    0    0    0    1    2
-[3,]    0    0    0    2    0
-[4,]    0    0    0    2    0
-```
-To decide the dose combination at which the eleventh cohort of patients treated, we can use the function `get.next.manoc()`.
-```rscript
-> rm(list=ls())
-> setwd("/MANOC_master/")
-> source("ToxProb_Generate.R")
-> source("NextDoseComb.R")
-> 
-> target <- 0.33
-> epi <- 0.025
-> delta <- 0.05
-> alpha<-0.35
-> eta<-0.55
-> NN <- 50000
-> 
-> j_curr<-1
-> k_curr<-5
->
-> n<-matrix(c(3,0,0,0, 0,3,0,0, 0,0,3,0, 0,9,3,3, 3,3,0,0),4,5)
-> y<-matrix(c(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,1,2,2, 0,2,0,0),4,5)
-> 
-> p.sample.mat <- generate_p.sample.mat(ndose.A=nrow(n),ndose.B=ncol(n), NN=NN, target=target, epi=epi) 
-> 
-> get.next.manoc(y=y,n=n,target=target,delta=delta,p.sample.mat=p.sample.mat,j_curr=j_curr,k_curr=k_curr,alpha=alpha,eta=eta)
-$next.dose
-[1] 2 5
-```
-That is, we assign the eleventh cohort of patients to dose combination (2,5).
-
 ## Simulation Studies
+Suppose the toxicity probability for each combination of the dose levels is given by
+```rscript
+> Tox_Prob_Mat
+     [,1] [,2] [,3] [,4] [,5]
+[1,] 0.01 0.03 0.06 0.10 0.18
+[2,] 0.01 0.07 0.12 0.21 0.33
+[3,] 0.03 0.15 0.24 0.38 0.53
+[4,] 0.06 0.33 0.42 0.58 0.72
+```
+We want to simulate 1000 trials to obtain the operating characteristics of the MANOC design with the target toxicity probability `phi=0.33` and the tuning parameters `alpha=0.35`, `delta=0.05`, `eta=0.55`, `epi=0.025`. The cohort size is three and the maximum number of patients is 66. We can use the following codes,  
 ```rscript
 > rm(list=ls())
 > 
 > setwd("/MANOC_master/")
-> source("NextDoseComb.R")
-> source("PosteriorProbability.R")
-> source("Simulation.R")
 > source("ToxProb_Generate.R")
+> source("Simulation.R")
 > source("Summarize.R")
 > 
 > require(parallel)
