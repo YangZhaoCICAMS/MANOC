@@ -1,6 +1,17 @@
 # MANOC (Multi-agent Nonparametric Overdose Control)
 R codes to implement the multi-agent nonparametric overdose control design for dose finding in phase I drug-combination trials.
 
+# Description
+The primary goal of phase I clinical trials is to determine the maximum tolerated dose (MTD) for future phase II studies. The MTD corresponds to the dose at which the probability of inducing dose-limiting toxicity is closest to the
+prespecified target toxicity rate.
+To enhance the robustness as well as safety of the design, we extend the single-agent non-
+parametric overdose control (NOC) design proposed by Lin and Yin (2016b) to drug-combination
+trials. The proposed multi-agent NOC (MANOC) design transforms dose finding into a model-
+selection problem for searching the most suitable model in the full model space composed with
+all paired dose combinations.
+In the proposed design, the dose–toxicity relationship is modelled
+solely based on the partial information of the toxicity order, and no parametric assumption is
+imposed.
 # Inputs 
 - samplesize: The maximum number of patients to be enrolled.  
 - cohortsize: The number of patients in each cohort. 
@@ -13,7 +24,6 @@ R codes to implement the multi-agent nonparametric overdose control design for d
 - nsim: The number of trials simulated under each scenario. 
 - Tox_Prob_Mat: The prespecified toxicity probability under each scenario. 
 
-# Description
 # Functions
 - NextDoseComb.R: Containing a function `get.next.manoc()` for determining the next dose combination given the current dose combination, the posterior model probabilities, alpha and eta. 
 - PosteriorProbability.R: Containing a function `posteriorH()` for calculating the posterior model probability for each dose combination.
@@ -43,21 +53,21 @@ We apply the MANOC design to the phase Ib trial with a combination of buparlisib
 ```
 We can use the following code to select the MTD combination. 
 ```rscript
-rm(list=ls())
+> rm(list=ls())
+> 
+> setwd("/MANOC_master/")
+> source("ToxProb_Generate.R")
+> source("PosteriorProbability.R")
+> source("MTDSelection.R")
+> target <- 0.33
+> epi <- 0.025
+> NN <- 50000
 
-setwd("/MANOC_master/")
-source("ToxProb_Generate.R")
-source("PosteriorProbability.R")
-source("MTDSelection.R")
-target <- 0.33
-epi <- 0.025
-NN <- 50000
+> n<-matrix(c(3,0,0,0, 0,3,0,0, 0,0,3,0, 0,9,3,3, 3,39,0,0),4,5)
+> y<-matrix(c(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,1,2,2, 0,12,0,0),4,5)
 
-n<-matrix(c(3,0,0,0, 0,3,0,0, 0,0,3,0, 0,9,3,3, 3,39,0,0),4,5)
-y<-matrix(c(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,1,2,2, 0,12,0,0),4,5)
-
-p.sample.mat <- generate_p.sample.mat(ndose.A=nrow(n),ndose.B=ncol(n), NN=NN, target=target, epi=epi) 
-MTDSelection(y=y,n=n,target=target,p.sample.mat=p.sample.mat)
+> p.sample.mat <- generate_p.sample.mat(ndose.A=nrow(n),ndose.B=ncol(n), NN=NN, target=target, epi=epi) 
+> MTDSelection(y=y,n=n,target=target,p.sample.mat=p.sample.mat)
 ```
 The output including the posterior probability of each dose combination and the selected MTD pair are respectively given by
 ```rscript
