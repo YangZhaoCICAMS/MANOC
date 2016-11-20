@@ -1,7 +1,7 @@
 # MANOC (Multi-agent Nonparametric Overdose Control)
 R codes to implement the multi-agent nonparametric overdose control design for dose finding in phase I drug-combination trials.
 
-## Inputs 
+# Inputs 
 - samplesize: The maximum number of patients to be enrolled.  
 - cohortsize: The number of patients in each cohort. 
 - target: The target toxicity rate. 
@@ -13,21 +13,18 @@ R codes to implement the multi-agent nonparametric overdose control design for d
 - nsim: The number of trials simulated under each scenario. 
 - Tox_Prob_Mat: The prespecified toxicity probability under each scenario. 
 
-## Functions
+# Description
+# Functions
 - NextDoseComb.R: Containing a function `get.next.manoc()` for determining the next dose combination given the current dose combination, the posterior model probabilities, alpha and eta. 
-
 - PosteriorProbability.R: Containing a function `posteriorH()` for calculating the posterior model probability for each dose combination.
-
 - Simulation.R: Containing a function `simulation()` for conducting simulation studies. 
-
 - Summarize.R: Containing a function `summarize()` for summarizing the outputs produced by the function `simulation()`.
-
 - ToxProb_Generate.R: Containing a function `generate_p.sample.mat()` for generating samples of the toxicity matrix **p** from its prior distribution. Details can be found in the Appendix of the paper. 
 
-## Examples
+# Examples
 We apply the MANOC design to the phase Ib trial with a combination of buparlisib and trametinib.
 
-### MTD Selection
+## MTD Selection
 - Suppose at the end of trial, the number of patients treated at each dose combination *n* and the corresponding number of toxicities *y* are 
 ```rscript
 > n
@@ -77,7 +74,7 @@ $MTD.sel
 [1,]   2   5
 ```
 
-### Next Dose Level
+## Next Dose Level
 - If ten cohorts of patients have been enrolled and the corresponding *n* and *y* are
 ```rscript
 > n
@@ -121,7 +118,7 @@ $next.dose
 ```
 That is, we assign the eleventh cohort of patients to dose combination (2,5).
 
-### Simulation Studies
+## Simulation Studies
 ```rscript
 > rm(list=ls())
 > 
@@ -223,7 +220,7 @@ Here, the values returned by `summarize()` are
 - summary.patients.pctg: the number of patients treated at each dose combination
 - summary.dlt.pctg: the number of toxicities observed at each dose combination
 
-## Authors and Reference
+## Authors
 Chi Kin Lam, Ruitao Lin and Guosheng Yin 
 
 ## Reference
