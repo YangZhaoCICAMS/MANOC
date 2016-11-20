@@ -7,7 +7,6 @@ The proposed multi-agent NOC (MANOC) design transforms dose finding into a model
 In the MANOC design, the dose–-toxicity relationship is modelled solely based on the partial information of the toxicity order.
 In addition, the posterior probability of each dose pair being the MTD combination is timely updated upon the availability
 of new information. 
-All the information across the entire dose space can be fully integrated for decision making. 
 To prevent patients from experiencing excessive toxicities, the dose combination assigned to each new cohort of patients is determined by minimizing an asymmetric loss function, such that overdosing is penalized to some extent. 
 Our nonparametric model specification in conjunction with the conservative dose-assignment scheme guarantee the MANOC design to be safe and yet maintain competitive performance for identifying the MTD combination.
 
