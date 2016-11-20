@@ -27,6 +27,7 @@ R codes to implement the multi-agent nonparametric overdose control design for d
 ## Examples
 We apply the MANOC design to the phase Ib trial with a combination of buparlisib and trametinib.
 
+### MTD Selection
 - Suppose at the end of trial, the number of patients treated at each dose combination *n* and the corresponding number of toxicities *y* are 
 ```rscript
 > n
@@ -61,7 +62,7 @@ y<-matrix(c(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,1,2,2, 0,12,0,0),4,5)
 p.sample.mat <- generate_p.sample.mat(ndose.A=nrow(n),ndose.B=ncol(n), NN=NN, target=target, epi=epi) 
 MTDSelection(y=y,n=n,target=target,p.sample.mat=p.sample.mat)
 ```
-The output is given by
+The output including the poaterior probability of each dose combination and the selected MTD pair are respectively given by
 ```rscript
 > MTDSelection(y=y,n=n,target=target,p.sample.mat=p.sample.mat)
 $pos.model
