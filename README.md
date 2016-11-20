@@ -93,7 +93,7 @@ $MTD.sel
 [3,]    0    0    0    2    0
 [4,]    0    0    0    2    0
 ```
-To decide the dose combination at which the eleventh cohort of patients treated, we can use the function `get.next.manoc`.
+To decide the dose combination at which the eleventh cohort of patients treated, we can use the function `get.next.manoc()`.
 ```rscript
 > rm(list=ls())
 > setwd("/MANOC_master/")
@@ -119,7 +119,7 @@ To decide the dose combination at which the eleventh cohort of patients treated,
 $next.dose
 [1] 2 5
 ```
-
+That is, we assign the eleventh cohort of patients to dose combination (2,5).
 
 ### Simulation Studies
 ## Authors and Reference
