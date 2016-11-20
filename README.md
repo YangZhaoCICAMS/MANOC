@@ -241,4 +241,5 @@ Here, the values returned by `summarize()` are
 Chi Kin Lam, Ruitao Lin and Guosheng Yin 
 
 ## Reference
-Lam, C.K., Lin R. and Yin, G. (2016) “Nonparametric overdose control for dose finding in drug-combination trials”.
+Lam, C.K., Lin R. and Yin, G. (2016) ''Nonparametric overdose control for dose finding in drug-combination trial''.
+Lin, R., and Yin, G. (2016). Nonparametric overdose control with late-onset toxicity in phase I clinical trials. Biostatistics, kxw038.
