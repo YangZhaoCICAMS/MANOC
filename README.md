@@ -123,47 +123,45 @@ That is, we assign the eleventh cohort of patients to dose combination (2,5).
 
 ### Simulation Studies
 ```rscript
-rm(list=ls())
-
-setwd("/Users/lamchikin/Dropbox/MANOC/MANOC_master/")
-source("NextDoseComb.R")
-source("PosteriorProbability.R")
-source("Simulation.R")
-source("ToxProb_Generate.R")
-source("Summarize.R")
-
-require(parallel)
-
-# A toxicity probability matrix. 
-Tox_Prob_Mat <-
-matrix(c(
-0.01,0.01,0.03,0.06,
-0.03,0.07,0.15,0.33,
-0.06,0.12,0.24,0.42,
-0.10,0.21,0.38,0.58,
-0.18,0.33,0.53,0.72
-),
-nrow=4, ncol=5
-)
-
-samplesize <- 66
-cohortsize <- 3
-target <- 0.33
-epi <- 0.025
-NN <- 50000
-
-alpha<-0.35
-delta<-0.05
-eta<-0.55
-
-nsim <- 1000
-
-## Generate the matrices of p according to the prior distribution of each model. ## 
-p.sample.mat <- generate_p.sample.mat(ndose.A=nrow(Tox_Prob_Mat),ndose.B=ncol(Tox_Prob_Mat), NN=NN, target=target, epi=epi) 
-
-sim_Results<-mclapply(1:nsim, function(simid) simulation(simid=simid,Tox_Prob_Mat=Tox_Prob_Mat, p.sample.mat=p.sample.mat,samplesize=samplesize, cohortsize=cohortsize, target=target, alpha=alpha, delta=delta, eta=eta), mc.cores=1)
-
-summarize(sim_Results=sim_Results,nsim=nsim,target=target)
+> rm(list=ls())
+> 
+> setwd("/MANOC_master/")
+> source("NextDoseComb.R")
+> source("PosteriorProbability.R")
+> source("Simulation.R")
+> source("ToxProb_Generate.R")
+> source("Summarize.R")
+> 
+> require(parallel)
+> 
+> # A toxicity probability matrix. 
+> Tox_Prob_Mat <-
++ matrix(c(
++ 0.01,0.01,0.03,0.06,
++ 0.03,0.07,0.15,0.33,
++ 0.06,0.12,0.24,0.42,
++ 0.10,0.21,0.38,0.58,
++ 0.18,0.33,0.53,0.72
++ ),
++ nrow=4, ncol=5
++ )
+> 
+> samplesize <- 66
+> cohortsize <- 3
+> target <- 0.33
+> epi <- 0.025
+> NN <- 50000
+> 
+> alpha<-0.35
+> delta<-0.05
+> eta<-0.55
+> 
+> nsim <- 1000
+> 
+> ## Generate the matrices of p according to the prior distribution of each model. ## 
+> p.sample.mat <- generate_p.sample.mat(ndose.A=nrow(Tox_Prob_Mat),ndose.B=ncol(Tox_Prob_Mat), NN=NN, target=target, epi=epi) 
+> 
+> sim_Results<-mclapply(1:nsim, function(simid) simulation(simid=simid,Tox_Prob_Mat=Tox_Prob_Mat, p.sample.mat=p.sample.mat,samplesize=samplesize, cohortsize=cohortsize, target=target, alpha=alpha, delta=delta, eta=eta), mc.cores=1)
 ```
 
 The results are
