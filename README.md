@@ -33,7 +33,7 @@ Our nonparametric model specification in conjunction with the conservative dose-
 We apply the MANOC design to the phase Ib trial with a combination of buparlisib and trametinib.
 
 ## Next Dose Level
-If ten cohorts of patients have been enrolled and the corresponding *n* and *y* are
+If ten cohorts of patients have been enrolled and the corresponding number of patients treated at each dose combination *n* and the corresponding number of toxicities *y* are 
 ```rscript
 > n
      [,1] [,2] [,3] [,4] [,5]
