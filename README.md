@@ -122,6 +122,99 @@ $next.dose
 That is, we assign the eleventh cohort of patients to dose combination (2,5).
 
 ### Simulation Studies
+```rscript
+rm(list=ls())
+
+setwd("/Users/lamchikin/Dropbox/MANOC/MANOC_master/")
+source("NextDoseComb.R")
+source("PosteriorProbability.R")
+source("Simulation.R")
+source("ToxProb_Generate.R")
+source("Summarize.R")
+
+require(parallel)
+
+# A toxicity probability matrix. 
+Tox_Prob_Mat <-
+matrix(c(
+0.01,0.01,0.03,0.06,
+0.03,0.07,0.15,0.33,
+0.06,0.12,0.24,0.42,
+0.10,0.21,0.38,0.58,
+0.18,0.33,0.53,0.72
+),
+nrow=4, ncol=5
+)
+
+samplesize <- 66
+cohortsize <- 3
+target <- 0.33
+epi <- 0.025
+NN <- 50000
+
+alpha<-0.35
+delta<-0.05
+eta<-0.55
+
+nsim <- 1000
+
+## Generate the matrices of p according to the prior distribution of each model. ## 
+p.sample.mat <- generate_p.sample.mat(ndose.A=nrow(Tox_Prob_Mat),ndose.B=ncol(Tox_Prob_Mat), NN=NN, target=target, epi=epi) 
+
+sim_Results<-mclapply(1:nsim, function(simid) simulation(simid=simid,Tox_Prob_Mat=Tox_Prob_Mat, p.sample.mat=p.sample.mat,samplesize=samplesize, cohortsize=cohortsize, target=target, alpha=alpha, delta=delta, eta=eta), mc.cores=1)
+
+summarize(sim_Results=sim_Results,nsim=nsim,target=target)
+```
+
+The results are
+```rscript
+> summarize(sim_Results=sim_Results,nsim=nsim,target=target)
+$Cor_Sel
+[1] 39.8
+
+$Cor_All
+[1] 22.21364
+
+$AI
+[1] 94
+
+$Over_Sel
+[1] 27.6
+
+$Over_All
+[1] 21.96364
+
+$DLT
+[1] 25.05303
+
+$summary.MTD.pctg
+     [,1] [,2] [,3] [,4] [,5]
+[1,]  0.0  0.0  0.0  0.4  4.6
+[2,]  0.0  0.0  0.3 13.9 19.1
+[3,]  0.0  0.7 12.5 18.0  0.3
+[4,]  0.2 20.7  8.9  0.4  0.0
+
+$summary.patients.pctg
+          [,1]        [,2]       [,3]      [,4]      [,5]
+[1,] 4.7272727  0.08636364  0.1681818  1.109091 3.9227273
+[2,] 0.2000000  6.70000000  3.8500000 12.963636 9.9818182
+[3,] 0.2909091  3.63636364 16.6136364 13.104545 0.8590909
+[4,] 1.5545455 12.23181818  4.9500000  2.909091 0.1409091
+
+$summary.dlt.pctg
+            [,1]      [,2]        [,3]      [,4]      [,5]
+[1,] 0.059090909 0.0000000 0.006060606 0.1075758 0.7590909
+[2,] 0.001515152 0.4909091 0.498484848 2.7984848 2.9818182
+[3,] 0.006060606 0.5242424 3.860606061 4.9348485 0.4727273
+[4,] 0.084848485 3.5939394 2.071212121 1.6893939 0.1121212
+
+$Tox_Prob_Mat
+     [,1] [,2] [,3] [,4] [,5]
+[1,] 0.01 0.03 0.06 0.10 0.18
+[2,] 0.01 0.07 0.12 0.21 0.30
+[3,] 0.03 0.15 0.24 0.38 0.53
+[4,] 0.06 0.30 0.42 0.58 0.72
+```
 ## Authors and Reference
 Chi Kin Lam, Ruitao Lin and Guosheng Yin 
 
