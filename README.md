@@ -43,7 +43,7 @@ We apply the MANOC design to the phase Ib trial with a combination of buparlisib
 [3,]    0    0    0    2    0
 [4,]    0    0    0    2    0
 ```
-### Posterior Probability
+We can use the following code to select the MTD combination. 
 ```rscript
 rm(list=ls())
 
@@ -58,12 +58,10 @@ NN <- 50000
 n<-matrix(c(3,0,0,0, 0,3,0,0, 0,0,3,0, 0,9,3,3, 3,39,0,0),4,5)
 y<-matrix(c(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,1,2,2, 0,12,0,0),4,5)
 
-## Generate the matrices of p. ## 
 p.sample.mat <- generate_p.sample.mat(ndose.A=nrow(n),ndose.B=ncol(n), NN=NN, target=target, epi=epi) 
-
 MTDSelection(y=y,n=n,target=target,p.sample.mat=p.sample.mat)
 ```
-
+The output is given by
 ```rscript
 > MTDSelection(y=y,n=n,target=target,p.sample.mat=p.sample.mat)
 $pos.model
