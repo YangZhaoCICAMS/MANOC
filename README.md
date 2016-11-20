@@ -57,28 +57,25 @@ R codes to implement the multi-agent nonparametric overdose control design for d
 > rm(list=ls())
 > setwd("/MANOC_master/")
 > source("ToxProb_Generate.R")
-> source("PosteriorProbability.R")
 > source("NextDoseComb.R")
 > 
-> target <- 0.30
+> target <- 0.33
 > epi <- 0.025
 > delta <- 0.05
-> NN <- 10000
+> NN <- 50000
 > 
-> ## Generate the matrices of p. ## 
-> p.sample.mat <- generate_p.sample.mat(ndose.A=4,ndose.B=5, NN=NN, target=target, epi=epi) 
+> j_curr<-1
+> k_curr<-5
 > 
-> n<-matrix(c(3,0,0,0, 0,3,0,0, 0,0,3,0, 0,9,3,3, 0,0,0,0),4,5)
-> y<-matrix(c(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,1,2,2, 0,0,0,0),4,5)
-> 
-> PostProb<-posteriorH(y=y,n=n,target=target,p.sample.mat=p.sample.mat)$lik
-> 
-> PostProb[which(n==0,arr.ind=TRUE)]<-PostProb[which(n==0,arr.ind=TRUE)]+delta
-> j_curr<-2
-> k_curr<-4
 > alpha<-0.35
 > eta<-0.55
-> get.next.manoc(pos.model=PostProb,j_curr=j_curr,k_curr=k_curr,alpha=alpha,eta=eta)
+>
+> n<-matrix(c(3,0,0,0, 0,3,0,0, 0,0,3,0, 0,9,3,3, 3,3,0,0),4,5)
+> y<-matrix(c(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,1,2,2, 0,2,0,0),4,5)
+> ## Generate the matrices of p. ## 
+> p.sample.mat <- generate_p.sample.mat(ndose.A=nrow(n),ndose.B=ncol(n), NN=NN, target=target, epi=epi) 
+> 
+> get.next.manoc(y=y,n=n,target=target,delta=delta,p.sample.mat=p.sample.mat,j_curr=j_curr,k_curr=k_curr,alpha=alpha,eta=eta)
 $next.dose
 [1] 2 5
 ```
