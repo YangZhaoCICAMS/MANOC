@@ -39,7 +39,7 @@ Our nonparametric model specification in conjunction with the conservative dose-
 - nsim: the number of trials simulated under each scenario.
 - p.sample.mat: the samples of **p** simulated from its joint prior distribution using the function `generate_p.sample.mat()`.
 - samplesize: the maximum number of patients to be enrolled. 
-- sim_Results: the simulation results produced by the function `simulation`.
+- sim_Results: the simulation results produced by the function `simulation()`.
 - simid: the seed of the random number generator.
 - target: the target toxicity rate.
 - Tox_Prob_Mat: a prespecified toxicity probability matrix in simulation study.
