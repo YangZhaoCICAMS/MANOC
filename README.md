@@ -245,14 +245,16 @@ $Tox_Prob_Mat
 [4,] 0.06 0.30 0.42 0.58 0.72
 ```
 Here, the values returned by `summarize()` are
-- Cor_Sel: the total correct selection percentage of the MTD combination(s)
-- Cor_All: the total percentage of patients treated at the MTD combination(s)
-- AI: the accuracy index
-- Over_Sel: the total selection percentage of the overtoxic dose combination(s)
-- Over_All: the total percentage of patients treated at the overtoxic dose combination(s)
-- summary.MTD.pctg: selection percentage at each dose combination
-- summary.patients.pctg: the number of patients treated at each dose combination
-- summary.dlt.pctg: the number of toxicities observed at each dose combination
+
+- AI: the accuracy index.
+- Cor_All: the total percentage of patients treated at the MTD combination(s).
+- Cor_Sel: the total correct selection percentage of the MTD combination(s).
+- Over_All: the total percentage of patients treated at the overtoxic dose combination(s).
+- Over_Sel: the total selection percentage of the overtoxic dose combination(s).
+- summary.dlt.pctg: the number of toxicities observed at each dose combination.
+- summary.MTD.pctg: selection percentage at each dose combination.
+- summary.patients.pctg: the number of patients treated at each dose combination.
+
 
 ## Authors
 Chi Kin Lam, Ruitao Lin and Guosheng Yin 
