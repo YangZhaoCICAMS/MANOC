@@ -59,12 +59,12 @@ To decide the dose combination at which the eleventh cohort of patients treated,
 > target <- 0.33
 > epi <- 0.025
 > delta <- 0.05
-> alpha<-0.35
-> eta<-0.55
+> alpha <- 0.35
+> eta <- 0.55
 > NN <- 50000
 > 
-> j_curr<-1
-> k_curr<-5
+> j_curr<-1 # The current dose level of trametinib. 
+> k_curr<-5 # The current dose level of buparlisib.
 >
 > n<-matrix(c(3,0,0,0, 0,3,0,0, 0,0,3,0, 0,9,3,3, 3,3,0,0),4,5)
 > y<-matrix(c(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,1,2,2, 0,2,0,0),4,5)
