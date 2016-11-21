@@ -3,7 +3,7 @@ R codes to implement the multi-agent nonparametric overdose control design for d
 
 # Description
 To enhance the robustness as well as safety of the design, we extend the single-agent non-parametric overdose control (NOC) design proposed by Lin and Yin (2016b) to drug-combination trials. 
-The proposed multi-agent NOC (MANOC) design transforms dose finding into a model-selection problem for searching the most suitable model in the full model space composed with all paired dose combinations.
+Under the Bayesian framework, the proposed multi-agent NOC (MANOC) design transforms dose finding into a model-selection problem for searching the most suitable model in the full model space composed with all paired dose combinations.
 In the MANOC design, the dose–-toxicity relationship is modelled solely based on the partial information of the toxicity order.
 In addition, the posterior probability of each dose pair being the MTD combination is timely updated upon the availability
 of new information. 
