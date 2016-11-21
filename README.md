@@ -12,6 +12,7 @@ Our nonparametric model specification in conjunction with the conservative dose-
 
 # Functions
 - ToxProb_Generate.R: containing a function `generate_p.sample.mat()` for generating samples of the toxicity matrix **p** from its prior distribution. Details can be found in the Appendix of the paper.
+`generate_p.sample.mat(ndose.A,ndose.B, NN, target, epi)`
 - MTDSelection.R: containing a function `MTDSelection()` for selecting a dose pair as the MTD combination. 
 - NextDoseComb.R: containing a function `get.next.manoc()` for determining the next dose combination.
 - PosteriorProbability.R: containing a function `posteriorH()` for calculating the posterior model probability for each dose combination.
@@ -19,6 +20,8 @@ Our nonparametric model specification in conjunction with the conservative dose-
 - Summarize.R: containing a function `summarize()` for summarizing the outputs produced by the function `simulation()`.
 
 # Inputs 
+- ndose.A: the total number of dose levels of drug A. 
+- ndose.B: the total number of dose levels of drug B. 
 - samplesize: the maximum number of patients to be enrolled. 
 - cohortsize: the number of patients in each cohort.
 - target: the target toxicity rate.
