@@ -25,23 +25,28 @@ Our nonparametric model specification in conjunction with the conservative dose-
   `summarize(sim_Results,nsim,target)`
 
 # Inputs 
+- alpha: the prespecified feasible bound.
+- cohortsize: the number of patients in each cohort.
+- delta: a small increment on the posterior probabilities for the untried dose combinations.
+- epi: A small positive value that defines the neighbourhood of the target toxicity probability.
+- eta: the dose-switching cutoff.
+- j_curr: the current dose level of drug A. 
+- k_curr: the current dose level of drug B. 
+- n: a matrix recording the number of patients treated at each dose combination.
 - ndose.A: the total number of dose levels of drug A. 
 - ndose.B: the total number of dose levels of drug B. 
-- samplesize: the maximum number of patients to be enrolled. 
-- cohortsize: the number of patients in each cohort.
-- target: the target toxicity rate.
-- epi: A small positive value that defines the neighbourhood of the target toxicity probability.
-- alpha: the prespecified feasible bound.
-- delta: a small increment on the posterior probabilities for the untried dose combinations.
-- eta: the dose-switching cutoff.
 - NN: the number of samples of **p** generated from its prior distribution.
 - nsim: the number of trials simulated under each scenario.
-- Tox_Prob_Mat: the prespecified toxicity probability under each scenario.
-- y: A matrix recording the number of toxicities at each dose combination.
-- >n: A matrix recording the number of patients treated at each dose combination.
+- p.sample.mat: the samples of **p** simulated from its joint prior distribution using the function `generate_p.sample.mat()`.
+- samplesize: the maximum number of patients to be enrolled. 
+- sim_Results: the simulation results produced by the function `simulation`.
+- simid: the seed of the random number generator.
+- target: the target toxicity rate.
+- Tox_Prob_Mat: a prespecified toxicity probability matrix in simulation study.
+- y: a matrix recording the number of toxicities at each dose combination.
 
 # Examples
-We apply the MANOC design to the phase Ib trial with a combination of buparlisib and trametinib.
+We apply the MANOC design to the phase Ib trial with a combination of five doses of buparlisib and four doses of trametinib.
 
 ## Next Dose Level
 If ten cohorts of patients have been enrolled and the corresponding number of patients treated at each dose combination *n* and the corresponding number of toxicities *y* are 
@@ -59,7 +64,8 @@ If ten cohorts of patients have been enrolled and the corresponding number of pa
 [3,]    0    0    0    2    0
 [4,]    0    0    0    2    0
 ```
-To decide the dose combination at which the eleventh cohort of patients treated, we can use the function `get.next.manoc()`.
+
+Suppose the tenth cohort of patients is treated at the dose combination (1,5). To decide the dose combination at which the eleventh cohort of patients treated, we can use the function `get.next.manoc()`.
 ```rscript
 > rm(list=ls())
 > setwd("/MANOC_master/")
@@ -104,7 +110,7 @@ Suppose at the end of trial, the number of patients treated at each dose combina
 [3,]    0    0    0    2    0
 [4,]    0    0    0    2    0
 ```
-We can use the following code to select the MTD combination. 
+We can use the following codes to select the MTD combination. 
 ```rscript
 > rm(list=ls())
 > 
@@ -128,14 +134,15 @@ The output including the posterior probability of each dose combination and the 
 $pos.model
      [,1] [,2] [,3] [,4] [,5]
 [1,] 0.00 0.00 0.00 0.00 0.02
-[2,] 0.00 0.00 0.00 0.02 0.42
-[3,] 0.00 0.00 0.04 0.19 0.05
+[2,] 0.00 0.00 0.00 0.02 0.43
+[3,] 0.00 0.00 0.04 0.19 0.04
 [4,] 0.01 0.05 0.15 0.06 0.00
 
 $MTD.sel
      row col
 [1,]   2   5
 ```
+Therefore, the dose pair (2,5) is selected as the MTD combination.
 
 ## Simulation Studies
 Suppose the toxicity probability for each combination of the dose levels is given by
