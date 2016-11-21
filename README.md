@@ -14,13 +14,13 @@ Our nonparametric model specification in conjunction with the conservative dose-
 - ToxProb_Generate.R: containing a function `generate_p.sample.mat()` for generating samples of the toxicity matrix **p** from its prior distribution. Details can be found in the Appendix of the paper.
   `generate_p.sample.mat(ndose.A,ndose.B, NN, target, epi)`
 - MTDSelection.R: containing a function `MTDSelection()` for selecting a dose pair as the MTD combination. 
-  `MTDSelection<-function(y=y,n=n,target=target,p.sample.mat=p.sample.mat)`
+  `MTDSelection(y,n,target,p.sample.mat)`
 - NextDoseComb.R: containing a function `get.next.manoc()` for determining the next dose combination.
-  `get.next.manoc<-function(y,n,target,p.sample.mat,delta,j_curr,k_curr,alpha,eta)`
+  `get.next.manoc(y,n,target,p.sample.mat,delta,j_curr,k_curr,alpha,eta)`
 - PosteriorProbability.R: containing a function `posteriorH()` for calculating the posterior model probability for each dose combination.
-  `posteriorH<-function(y,n,target,p.sample.mat)`
+  `posteriorH(y,n,target,p.sample.mat)`
 - Simulation.R: containing a function `simulation()` for conducting simulation studies.
-  `simulation(simid, Tox_Prob_Mat, p.sample.mat, samplesize=60, cohortsize=3, target=0.3, alpha=0.35, delta=0.03, eta=0.60)`
+  `simulation(simid, Tox_Prob_Mat, p.sample.mat, samplesize, cohortsize, target, alpha, delta, eta)`
 - Summarize.R: containing a function `summarize()` for summarizing the outputs produced by the function `simulation()`.
   `summarize(sim_Results,nsim,target)`
 
@@ -37,6 +37,8 @@ Our nonparametric model specification in conjunction with the conservative dose-
 - NN: the number of samples of **p** generated from its prior distribution.
 - nsim: the number of trials simulated under each scenario.
 - Tox_Prob_Mat: the prespecified toxicity probability under each scenario.
+- y: A matrix recording the number of toxicities at each dose combination.
+- >n: A matrix recording the number of patients treated at each dose combination.
 
 # Examples
 We apply the MANOC design to the phase Ib trial with a combination of buparlisib and trametinib.
