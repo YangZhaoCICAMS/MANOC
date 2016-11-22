@@ -131,18 +131,6 @@ The output including the posterior probability of each dose combination and the 
 ```rscript
 > MTDSelection(y=y,n=n,target=target,p.sample.mat=p.sample.mat)
 $pos.model
-             [,1]         [,2]         [,3]         [,4]        [,5]
-[1,] 8.234437e-03 4.973959e-02 1.501783e-01 0.0558541775 0.001684638
-[2,] 2.009053e-04 3.084636e-03 4.458404e-02 0.1897013082 0.050637695
-[3,] 3.125279e-08 1.705934e-06 1.807852e-04 0.0153699778 0.415292377
-[4,] 2.212182e-14 7.129080e-11 2.101061e-07 0.0000420332 0.015213159
-
-$MTD.sel
-     row col
-[1,]   2   5
-
-> MTDSelection(y=y,n=n,target=target,p.sample.mat=p.sample.mat)
-$pos.model
      [,1] [,2] [,3] [,4] [,5]
 [1,] 0.01	0.05 0.15	0.06 0.00
 [2,] 0.00	0.00 0.04	0.19 0.05
