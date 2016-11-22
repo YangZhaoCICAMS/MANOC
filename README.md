@@ -152,7 +152,7 @@ Suppose the toxicity probability for each combination of the dose levels is give
 [3,] 0.01 0.07 0.12 0.21 0.33
 [4,] 0.01 0.03 0.06 0.10 0.18
 ```
-We want to simulate 1000 trials to obtain the operating characteristics of the MANOC design with the target toxicity probability `phi=0.33` and the tuning parameters `alpha=0.35`, `delta=0.05`, `eta=0.55`, `epi=0.025`. The cohort size is three and the maximum number of patients is 66. We can use the following codes,  
+We simulate 1000 trials to obtain the operating characteristics of the MANOC design with the target toxicity probability `phi=0.33` and the tuning parameters `alpha=0.35`, `delta=0.05`, `eta=0.55`, `epi=0.025`. The cohort size is three and the maximum number of patients is 66. We can use the following codes,  
 ```rscript
 > rm(list=ls())
 > 
