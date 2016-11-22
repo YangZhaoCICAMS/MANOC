@@ -147,16 +147,16 @@ Suppose the toxicity probability for each combination of the dose levels is give
 ```rscript
 > Tox_Prob_Mat
      [,1] [,2] [,3] [,4] [,5]
-[1,] 0.01 0.03 0.06 0.10 0.18
-[2,] 0.01 0.07 0.12 0.21 0.33
-[3,] 0.03 0.15 0.24 0.38 0.53
-[4,] 0.06 0.33 0.42 0.58 0.72
+[1,] 0.06 0.33 0.42 0.58 0.72
+[2,] 0.03 0.15 0.24 0.38 0.53
+[3,] 0.01 0.07 0.12 0.21 0.33
+[4,] 0.01 0.03 0.06 0.10 0.18
 ```
 We want to simulate 1000 trials to obtain the operating characteristics of the MANOC design with the target toxicity probability `phi=0.33` and the tuning parameters `alpha=0.35`, `delta=0.05`, `eta=0.55`, `epi=0.025`. The cohort size is three and the maximum number of patients is 66. We can use the following codes,  
 ```rscript
 > rm(list=ls())
 > 
-> setwd("/MANOC_master/")
+> setwd("/Users/lamchikin/Dropbox/MANOC/MANOC_master/")
 > source("ToxProb_Generate.R")
 > source("Simulation.R")
 > source("Summarize.R")
@@ -166,11 +166,11 @@ We want to simulate 1000 trials to obtain the operating characteristics of the M
 > # A toxicity probability matrix. 
 > Tox_Prob_Mat <-
 + matrix(c(
-+ 0.01,0.01,0.03,0.06,
-+ 0.03,0.07,0.15,0.33,
-+ 0.06,0.12,0.24,0.42,
-+ 0.10,0.21,0.38,0.58,
-+ 0.18,0.33,0.53,0.72
++ 0.06,0.03,0.01,0.01,
++ 0.33,0.15,0.07,0.03,
++ 0.42,0.24,0.12,0.06,
++ 0.58,0.38,0.21,0.10,
++ 0.72,0.53,0.33,0.18
 + ),
 + nrow=4, ncol=5
 + )
@@ -192,7 +192,6 @@ We want to simulate 1000 trials to obtain the operating characteristics of the M
 > 
 > sim_Results<-mclapply(1:nsim, function(simid) simulation(simid=simid,Tox_Prob_Mat=Tox_Prob_Mat, p.sample.mat=p.sample.mat,samplesize=samplesize, cohortsize=cohortsize, target=target, alpha=alpha, delta=delta, eta=eta), mc.cores=1)
 ```
-
 We can use the function `summarize()` to obtain the operating characteristics of the MANOC design as a list.
 ```rscript
 > summarize(sim_Results=sim_Results,nsim=nsim,target=target)
