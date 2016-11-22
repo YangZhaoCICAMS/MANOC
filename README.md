@@ -55,13 +55,13 @@ If ten cohorts of patients have been enrolled and the corresponding number of pa
       Dose1 Dose2 Dose3 Dose4 Dose5
 Dose4     0     0     0     3     0
 Dose3     0     0     3     3     0
-Dose2     0     3     0     9    39
+Dose2     0     3     0     9     3
 Dose1     3     0     0     0     3
 > y
       Dose1 Dose2 Dose3 Dose4 Dose5
 Dose4     0     0     0     2     0
 Dose3     0     0     0     2     0
-Dose2     0     0     0     1    12
+Dose2     0     0     0     1     2
 Dose1     0     0     0     0     0
 ```
 
@@ -97,17 +97,17 @@ That is, we assign the eleventh cohort of patients to dose combination (2,5).
 Suppose at the end of trial, the number of patients treated at each dose combination *n* and the corresponding number of toxicities *y* are 
 ```rscript
 > n
-     [,1] [,2] [,3] [,4] [,5]
-[1,]    0    0    0    3    0
-[2,]    0    0    3    3    0
-[3,]    0    3    0    9   39
-[4,]    3    0    0    0    3
+      Dose1 Dose2 Dose3 Dose4 Dose5
+Dose4     0     0     0     3     0
+Dose3     0     0     3     3     0
+Dose2     0     3     0     9    39
+Dose1     3     0     0     0     3
 > y
-     [,1] [,2] [,3] [,4] [,5]
-[1,]    0    0    0    2    0
-[2,]    0    0    0    2    0
-[3,]    0    0    0    1   12
-[4,]    0    0    0    0    0
+      Dose1 Dose2 Dose3 Dose4 Dose5
+Dose4     0     0     0     2     0
+Dose3     0     0     0     2     0
+Dose2     0     0     0     1    12
+Dose1     0     0     0     0     0
 ```
 We can use the following codes to select the MTD combination. 
 ```rscript
@@ -147,11 +147,11 @@ Therefore, the dose pair (2,5) with the posterior probability 0.42 is selected a
 Suppose the toxicity probability for each combination of the dose levels is given by
 ```rscript
 > Tox_Prob_Mat
-     [,1] [,2] [,3] [,4] [,5]
-[1,] 0.06 0.33 0.42 0.58 0.72
-[2,] 0.03 0.15 0.24 0.38 0.53
-[3,] 0.01 0.07 0.12 0.21 0.33
-[4,] 0.01 0.03 0.06 0.10 0.18
+      Dose1 Dose2 Dose3 Dose4 Dose5
+Dose4  0.06  0.33  0.42  0.58  0.72
+Dose3  0.03  0.15  0.24  0.38  0.53
+Dose2  0.01  0.07  0.12  0.21  0.33
+Dose1  0.01  0.03  0.06  0.10  0.18
 ```
 We simulate 1000 trials to obtain the operating characteristics of the MANOC design with the target toxicity probability `phi=0.33` and the tuning parameters `alpha=0.35`, `delta=0.05`, `eta=0.55`, `epi=0.025`. The cohort size is three and the maximum number of patients is 66. 
 ```rscript
@@ -215,32 +215,32 @@ $DLT
 [1] 25.1
 
 $summary.MTD.pctg
-     [,1] [,2] [,3] [,4] [,5]
-[1,]  0.2 20.7  8.9  0.4  0.0
-[2,]  0.0  0.7 12.5 18.0  0.3
-[3,]  0.0  0.0  0.3 13.9 19.1
-[4,]  0.0  0.0  0.0  0.4  4.6
+      Dose1 Dose2 Dose3 Dose4 Dose5
+Dose4   0.2  20.7   8.9   0.4   0.0
+Dose3   0.0   0.7  12.5  18.0   0.3
+Dose2   0.0   0.0   0.3  13.9  19.1
+Dose1   0.0   0.0   0.0   0.4   4.6
 
 $summary.patients.pctg
-     [,1] [,2] [,3] [,4] [,5]
-[1,] 1.55 12.2 4.95 2.91 0.14
-[2,] 0.29 3.64 16.6 13.1 0.86
-[3,] 0.20 6.70 3.85 13.0 9.98
-[4,] 4.73 0.09 0.17 1.11 3.92
+      Dose1 Dose2 Dose3 Dose4 Dose5
+Dose4  1.55  12.2  4.95  2.91  0.14
+Dose3  0.29  3.64  16.6  13.1  0.86
+Dose2  0.20  6.70  3.85  13.0  9.98
+Dose1  4.73  0.09  0.17  1.11  3.92
 
 $summary.dlt.pctg
-     [,1] [,2] [,3] [,4] [,5]
-[1,] 0.08 3.59 2.07 1.69 0.11
-[2,] 0.01 0.52 3.86 4.93 0.47
-[3,] 0.00 0.49 0.50 2.80 2.98
-[4,] 0.06 0.00 0.01 0.11 0.76
+      Dose1 Dose2 Dose3 Dose4 Dose5
+Dose4  0.08  3.59  2.07  1.69  0.11
+Dose3  0.01  0.52  3.86  4.93  0.47
+Dose2  0.00  0.49  0.50  2.80  2.98
+Dose1  0.06  0.00  0.01  0.11  0.76
 
 $Tox_Prob_Mat
-     [,1] [,2] [,3] [,4] [,5]
-[1,] 0.06 0.33 0.42 0.58 0.72
-[2,] 0.03 0.15 0.24 0.38 0.53
-[3,] 0.01 0.07 0.12 0.21 0.33
-[4,] 0.01 0.03 0.06 0.10 0.18
+      Dose1 Dose2 Dose3 Dose4 Dose5
+Dose4  0.06  0.33  0.42  0.58  0.72
+Dose3  0.03  0.15  0.24  0.38  0.53
+Dose2  0.01  0.07  0.12  0.21  0.33
+Dose1  0.01  0.03  0.06  0.10  0.18
 ```
 The values returned by `summarize()` include
 - AI: the accuracy index.
