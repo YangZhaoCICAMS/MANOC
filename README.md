@@ -156,7 +156,7 @@ We simulate 1000 trials to obtain the operating characteristics of the MANOC des
 ```rscript
 > rm(list=ls())
 > 
-> setwd("/Users/lamchikin/Dropbox/MANOC/MANOC_master/")
+> setwd("/MANOC_master/")
 > source("ToxProb_Generate.R")
 > source("Simulation.R")
 > source("Summarize.R")
