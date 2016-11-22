@@ -1,10 +1,10 @@
-# MANOC (Multi-agent Nonparametric Overdose Control)
+# MANOC (Multi-Agent Nonparametric Overdose Control)
 R codes to implement the multi-agent nonparametric overdose control design for dose finding in phase I drug-combination trials.
 
 # Description
-To enhance the robustness as well as safety of the design, we extend the single-agent non-parametric overdose control (NOC) design proposed by Lin and Yin (2016b) to drug-combination trials. 
-Under the Bayesian framework, the proposed multi-agent NOC (MANOC) design transforms dose finding into a model-selection problem for searching the most suitable model in the full model space composed with all paired dose combinations.
-In the MANOC design, the dose–-toxicity relationship is modelled solely based on the partial information of the toxicity order.
+To enhance the robustness as well as safety of the design, we extend the non-parametric overdose control (NOC) design proposed by Lin and Yin (2016) to drug-combination trials. 
+Under the Bayesian framework, the proposed multi-agent NOC (MANOC) design transforms dose finding into a model-selection problem in the model space composed with all paired dose combinations.
+In the MANOC design, the dose-toxicity relationship is modelled solely based on the partial information of the toxicity order.
 In addition, the posterior probability of each dose pair being the MTD combination is timely updated upon the availability
 of new information. 
 To prevent patients from experiencing excessive toxicities, the dose combination assigned to each new cohort of patients is determined by minimizing an asymmetric loss function, such that overdosing is penalized to some extent. 
@@ -42,7 +42,7 @@ Our nonparametric model specification in conjunction with the conservative dose-
 - sim_Results: the simulation results produced by the function `simulation()`.
 - simid: the seed of the random number generator.
 - target: the target toxicity rate.
-- Tox_Prob_Mat: a prespecified toxicity probability matrix in simulation study.
+- Tox_Prob_Mat: a prespecified toxicity probability matrix in a senario of a simulation study.
 - y: a matrix recording the number of toxicities at each dose combination.
 
 # Examples
@@ -53,19 +53,19 @@ If ten cohorts of patients have been enrolled and the corresponding number of pa
 ```rscript
 > n
      [,1] [,2] [,3] [,4] [,5]
-[1,]    3    0    0    0    3
-[2,]    0    3    0    9    3
-[3,]    0    0    3    3    0
-[4,]    0    0    0    3    0
+[1,]    0    0    0    3    0
+[2,]    0    0    3    3    0
+[3,]    0    3    0    9    3
+[4,]    3    0    0    0    3
 > y
      [,1] [,2] [,3] [,4] [,5]
-[1,]    0    0    0    0    0
-[2,]    0    0    0    1    2
-[3,]    0    0    0    2    0
-[4,]    0    0    0    2    0
+[1,]    0    0    0    2    0
+[2,]    0    0    0    2    0
+[3,]    0    0    0    1    2
+[4,]    0    0    0    0    0
 ```
 
-Suppose the tenth cohort of patients is treated at the dose combination (1,5). To decide the dose combination at which the eleventh cohort of patients treated, we can use the function `get.next.manoc()`.
+Suppose the tenth cohort of patients is treated at the dose combination (1,5). To determine the dose combination at which the eleventh cohort of patients will be treated, we use the function `get.next.manoc()`.
 ```rscript
 > rm(list=ls())
 > setwd("/MANOC_master/")
@@ -75,18 +75,18 @@ Suppose the tenth cohort of patients is treated at the dose combination (1,5). T
 > target <- 0.33
 > epi <- 0.025
 > delta <- 0.05
-> alpha <- 0.35
-> eta <- 0.55
 > NN <- 50000
 > 
-> j_curr<-1 # The current dose level of trametinib. 
-> k_curr<-5 # The current dose level of buparlisib.
->
-> n<-matrix(c(3,0,0,0, 0,3,0,0, 0,0,3,0, 0,9,3,3, 3,3,0,0),4,5)
-> y<-matrix(c(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,1,2,2, 0,2,0,0),4,5)
+> j_curr<-1
+> k_curr<-5
 > 
+> alpha<-0.35
+> eta<-0.55
+> 
+> n<-matrix(c(0,0,0,3, 0,0,3,0, 0,3,0,0, 3,3,9,0, 0,0,3,3),4,5)
+> y<-matrix(c(0,0,0,0, 0,0,0,0, 0,0,0,0, 2,2,1,0, 0,0,2,0),4,5)
+> ## Generate the matrices of p. ## 
 > p.sample.mat <- generate_p.sample.mat(ndose.A=nrow(n),ndose.B=ncol(n), NN=NN, target=target, epi=epi) 
-> 
 > get.next.manoc(y=y,n=n,target=target,delta=delta,p.sample.mat=p.sample.mat,j_curr=j_curr,k_curr=k_curr,alpha=alpha,eta=eta)
 $next.dose
 [1] 2 5
@@ -98,17 +98,16 @@ Suppose at the end of trial, the number of patients treated at each dose combina
 ```rscript
 > n
      [,1] [,2] [,3] [,4] [,5]
-[1,]    3    0    0    0    3
-[2,]    0    3    0    9   39
-[3,]    0    0    3    3    0
-[4,]    0    0    0    3    0
-> 
+[1,]    0    0    0    3    0
+[2,]    0    0    3    3    0
+[3,]    0    3    0    9   39
+[4,]    3    0    0    0    3
 > y
      [,1] [,2] [,3] [,4] [,5]
-[1,]    0    0    0    0    0
-[2,]    0    0    0    1   12
-[3,]    0    0    0    2    0
-[4,]    0    0    0    2    0
+[1,]    0    0    0    2    0
+[2,]    0    0    0    2    0
+[3,]    0    0    0    1   12
+[4,]    0    0    0    0    0
 ```
 We can use the following codes to select the MTD combination. 
 ```rscript
@@ -116,15 +115,15 @@ We can use the following codes to select the MTD combination.
 > 
 > setwd("/MANOC_master/")
 > source("ToxProb_Generate.R")
-> source("PosteriorProbability.R")
 > source("MTDSelection.R")
+> 
 > target <- 0.33
 > epi <- 0.025
 > NN <- 50000
-
-> n<-matrix(c(3,0,0,0, 0,3,0,0, 0,0,3,0, 0,9,3,3, 3,39,0,0),4,5)
-> y<-matrix(c(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,1,2,2, 0,12,0,0),4,5)
-
+> 
+> n<-matrix(c(0,0,0,3, 0,0,3,0, 0,3,0,0, 3,3,9,0, 0,0,39,3),4,5)
+> y<-matrix(c(0,0,0,0, 0,0,0,0, 0,0,0,0, 2,2,1,0, 0,0,12,0),4,5)
+>
 > p.sample.mat <- generate_p.sample.mat(ndose.A=nrow(n),ndose.B=ncol(n), NN=NN, target=target, epi=epi) 
 > MTDSelection(y=y,n=n,target=target,p.sample.mat=p.sample.mat)
 ```
@@ -132,12 +131,23 @@ The output including the posterior probability of each dose combination and the 
 ```rscript
 > MTDSelection(y=y,n=n,target=target,p.sample.mat=p.sample.mat)
 $pos.model
-     [,1] [,2] [,3] [,4] [,5]
-[1,] 0.00 0.00 0.00 0.00 0.02
-[2,] 0.00 0.00 0.00 0.02 0.43
-[3,] 0.00 0.00 0.04 0.19 0.04
-[4,] 0.01 0.05 0.15 0.06 0.00
+             [,1]         [,2]         [,3]         [,4]        [,5]
+[1,] 8.234437e-03 4.973959e-02 1.501783e-01 0.0558541775 0.001684638
+[2,] 2.009053e-04 3.084636e-03 4.458404e-02 0.1897013082 0.050637695
+[3,] 3.125279e-08 1.705934e-06 1.807852e-04 0.0153699778 0.415292377
+[4,] 2.212182e-14 7.129080e-11 2.101061e-07 0.0000420332 0.015213159
 
+$MTD.sel
+     row col
+[1,]   2   5
+
+> MTDSelection(y=y,n=n,target=target,p.sample.mat=p.sample.mat)
+$pos.model
+     [,1] [,2] [,3] [,4] [,5]
+[1,] 0.01	0.05 0.15	0.06 0.00
+[2,] 0.00	0.00 0.04	0.19 0.05
+[3,] 0.00	0.00 0.00	0.02 0.42
+[4,] 0.00	0.00 0.00	0.00 0.02
 $MTD.sel
      row col
 [1,]   2   5
