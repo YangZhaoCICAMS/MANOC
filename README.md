@@ -52,17 +52,17 @@ We apply the MANOC design to the phase Ib trial with a combination of five doses
 If ten cohorts of patients have been enrolled and the corresponding number of patients treated at each dose combination *n* and the corresponding number of toxicities *y* are 
 ```rscript
 > n
-     [,1] [,2] [,3] [,4] [,5]
-[1,]    0    0    0    3    0
-[2,]    0    0    3    3    0
-[3,]    0    3    0    9    3
-[4,]    3    0    0    0    3
+      Dose1 Dose2 Dose3 Dose4 Dose5
+Dose4     0     0     0     3     0
+Dose3     0     0     3     3     0
+Dose2     0     3     0     9    39
+Dose1     3     0     0     0     3
 > y
-     [,1] [,2] [,3] [,4] [,5]
-[1,]    0    0    0    2    0
-[2,]    0    0    0    2    0
-[3,]    0    0    0    1    2
-[4,]    0    0    0    0    0
+      Dose1 Dose2 Dose3 Dose4 Dose5
+Dose4     0     0     0     2     0
+Dose3     0     0     0     2     0
+Dose2     0     0     0     1    12
+Dose1     0     0     0     0     0
 ```
 
 Suppose the tenth cohort of patients is treated at the dose combination (1,5). To determine the dose combination at which the eleventh cohort of patients will be treated, we use the function `get.next.manoc()`.
