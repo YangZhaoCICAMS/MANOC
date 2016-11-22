@@ -140,7 +140,7 @@ $MTD.sel
      row col
 [1,]   2   5
 ```
-Therefore, the dose pair (2,5) is selected as the MTD combination.
+Therefore, the dose pair (2,5) with the posterior probability 0.42 is selected as the MTD combination.
 
 ## Simulation Studies
 Suppose the toxicity probability for each combination of the dose levels is given by
