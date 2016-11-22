@@ -132,10 +132,10 @@ The output including the posterior probability of each dose combination and the 
 > MTDSelection(y=y,n=n,target=target,p.sample.mat=p.sample.mat)
 $pos.model
      [,1] [,2] [,3] [,4] [,5]
-[1,] 0.01	0.05 0.15	0.06 0.00
-[2,] 0.00	0.00 0.04	0.19 0.05
-[3,] 0.00	0.00 0.00	0.02 0.42
-[4,] 0.00	0.00 0.00	0.00 0.02
+[1,] 0.01 0.05 0.15 0.06 0.00
+[2,] 0.00 0.00 0.04 0.19 0.05
+[3,] 0.00 0.00 0.00 0.02 0.42
+[4,] 0.00 0.00 0.00 0.00 0.02
 $MTD.sel
      row col
 [1,]   2   5
@@ -193,13 +193,13 @@ We want to simulate 1000 trials to obtain the operating characteristics of the M
 > sim_Results<-mclapply(1:nsim, function(simid) simulation(simid=simid,Tox_Prob_Mat=Tox_Prob_Mat, p.sample.mat=p.sample.mat,samplesize=samplesize, cohortsize=cohortsize, target=target, alpha=alpha, delta=delta, eta=eta), mc.cores=1)
 ```
 
-We can use the function `summarize()` to operating characteristics of the MANOC design as a list, including 
+We can use the function `summarize()` to obtain the operating characteristics of the MANOC design as a list.
 ```rscript
 > summarize(sim_Results=sim_Results,nsim=nsim,target=target)
-$Cor_Sel
+$MTD_Sel
 [1] 39.8
 
-$Cor_All
+$MTD_Pts
 [1] 22.2
 
 $AI
@@ -208,7 +208,7 @@ $AI
 $Over_Sel
 [1] 27.6
 
-$Over_All
+$Over_Pts
 [1] 22.0
 
 $DLT
@@ -216,48 +216,46 @@ $DLT
 
 $summary.MTD.pctg
      [,1] [,2] [,3] [,4] [,5]
-[1,]  0.0  0.0  0.0  0.4  4.6
-[2,]  0.0  0.0  0.3 13.9 19.1
-[3,]  0.0  0.7 12.5 18.0  0.3
-[4,]  0.2 20.7  8.9  0.4  0.0
+[1,]  0.2 20.7  8.9  0.4  0.0
+[2,]  0.0  0.7 12.5 18.0  0.3
+[3,]  0.0  0.0  0.3 13.9 19.1
+[4,]  0.0  0.0  0.0  0.4  4.6
 
 $summary.patients.pctg
      [,1] [,2] [,3] [,4] [,5]
-[1,] 4.73 0.09 0.17 1.11 3.92
-[2,] 0.20 6.70 3.85 13.0 9.98
-[3,] 0.29 3.64 16.6 13.1 0.86
-[4,] 1.55 12.2 4.95 2.91 0.14
+[1,] 1.55 12.2 4.95 2.91 0.14
+[2,] 0.29 3.64 16.6 13.1 0.86
+[3,] 0.20 6.70 3.85 13.0 9.98
+[4,] 4.73 0.09 0.17 1.11 3.92
 
 $summary.dlt.pctg
      [,1] [,2] [,3] [,4] [,5]
-[1,] 0.06 0.00 0.01 0.11 0.76
-[2,] 0.00 0.49 0.50 2.80 2.98
-[3,] 0.01 0.52 3.86 4.93 0.47
-[4,] 0.08 3.59 2.07 1.69 0.11
+[1,] 0.08 3.59 2.07 1.69 0.11
+[2,] 0.01 0.52 3.86 4.93 0.47
+[3,] 0.00 0.49 0.50 2.80 2.98
+[4,] 0.06 0.00 0.01 0.11 0.76
 
 $Tox_Prob_Mat
      [,1] [,2] [,3] [,4] [,5]
-[1,] 0.01 0.03 0.06 0.10 0.18
-[2,] 0.01 0.07 0.12 0.21 0.30
-[3,] 0.03 0.15 0.24 0.38 0.53
-[4,] 0.06 0.30 0.42 0.58 0.72
+[1,] 0.06 0.33 0.42 0.58 0.72
+[2,] 0.03 0.15 0.24 0.38 0.53
+[3,] 0.01 0.07 0.12 0.21 0.33
+[4,] 0.01 0.03 0.06 0.10 0.18
 ```
-Here, the values returned by `summarize()` are
-
+The values returned by `summarize()` include
 - AI: the accuracy index.
-- Cor_All: the total percentage of patients treated at the MTD combination(s).
-- Cor_Sel: the total correct selection percentage of the MTD combination(s).
-- Over_All: the total percentage of patients treated at the overtoxic dose combination(s).
-- Over_Sel: the total selection percentage of the overtoxic dose combination(s).
+- MTD_Pts: the percentage of patients treated at the MTD combination(s).
+- MTD_Sel: the correct selection percentage of the MTD combination(s).
+- Over_Pts: the percentage of patients treated at the overtoxic dose combination(s).
+- Over_Sel: the selection percentage of the overtoxic dose combination(s).
 - summary.dlt.pctg: the number of toxicities observed at each dose combination.
-- summary.MTD.pctg: selection percentage at each dose combination.
+- summary.MTD.pctg: the selection percentage at each dose combination.
 - summary.patients.pctg: the number of patients treated at each dose combination.
-
 
 ## Authors
 Chi Kin Lam, Ruitao Lin and Guosheng Yin 
 
 ## Reference
-Lam, C.K., Lin R. and Yin, G. (2016) ''Nonparametric overdose control for dose finding in drug-combination trial''.
+Lam, C.K., Lin R. and Yin, G. (2017) ''Nonparametric overdose control for dose finding in drug-combination trial''.
 
-Lin, R., and Yin, G. (2016). ''Nonparametric overdose control with late-onset toxicity in phase I clinical trials''. Biostatistics, kxw038.
+Lin, R., and Yin, G. (2016). ''Nonparametric overdose control with late-onset toxicity in phase I clinical trials''. Biostatistics, in press. doi: 10.1093/biostatistics/kxw038.
